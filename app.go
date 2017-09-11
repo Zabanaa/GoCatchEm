@@ -7,6 +7,7 @@ import (
 	_ "github.com/lib/pq"
 	"log"
 	"net/http"
+	"pokemon_api/controllers"
 )
 
 type App struct {
@@ -27,7 +28,7 @@ func (app *App) Initialize(dbuser, dbpassword, dbname string) {
 	}
 
 	app.Router = mux.NewRouter()
-	// app.RegisterRoutes()
+	app.RegisterRoutes()
 }
 
 func (app *App) Run(addr string) {
@@ -36,4 +37,10 @@ func (app *App) Run(addr string) {
 	log.Fatal(http.ListenAndServe(addr, app.Router))
 }
 
-func (app *App) RegisterRoutes() {}
+func (app *App) RegisterRoutes() {
+	app.Router.HandleFunc("/", app.GetAllPokemons)
+}
+
+func (app *App) GetAllPokemons(w http.ResponseWriter, r *http.Request) {
+	controllers.GetAllPokemons(app.DB, w, r)
+}
