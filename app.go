@@ -3,11 +3,12 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"github.com/gorilla/mux"
-	_ "github.com/lib/pq"
 	"log"
 	"net/http"
 	"pokemon_api/controllers"
+
+	"github.com/gorilla/mux"
+	_ "github.com/lib/pq"
 )
 
 type App struct {
@@ -38,9 +39,16 @@ func (app *App) Run(addr string) {
 }
 
 func (app *App) RegisterRoutes() {
-	app.Router.HandleFunc("/", app.GetAllPokemons)
+	app.Router.HandleFunc("/pokemons", app.getAllPokemons).Methods("GET")
+	app.Router.HandleFunc("/pokemons/{name}", app.getPokemon).Methods("GET")
 }
 
-func (app *App) GetAllPokemons(w http.ResponseWriter, r *http.Request) {
+// Controllers
+
+func (app *App) getAllPokemons(w http.ResponseWriter, r *http.Request) {
 	controllers.GetAllPokemons(app.DB, w, r)
+}
+
+func (app *App) getPokemon(w http.ResponseWriter, r *http.Request) {
+	controllers.GetPokemon(app.DB, w, r)
 }
