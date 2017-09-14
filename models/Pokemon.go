@@ -1,16 +1,14 @@
 package models
 
-import "database/sql"
-
 type Pokemon struct {
-	ID         int           `json:"id,omitempty"`
-	Number     string        `json:"number,omitempty"`
-	Name       string        `json:"name,omitempty"`
-	JpName     string        `json:"jp_name,omitempty"`
-	Types      string        `json:"types,omitempty"`
-	Stats      Stats         `json:"stats,omitempty"`
-	Bio        string        `json:"bio,omitempty"`
-	Generation sql.NullInt64 `json:"generation,omitempty"`
+	ID         int    `json:"id,omitempty"`
+	Number     string `json:"number,omitempty"`
+	Name       string `json:"name,omitempty"`
+	JpName     string `json:"jp_name,omitempty"`
+	Types      string `json:"types,omitempty"`
+	Stats      Stats  `json:"stats,omitempty"`
+	Bio        string `json:"bio,omitempty"`
+	Generation int64  `json:"generation,omitempty"`
 }
 
 type Stats struct {
