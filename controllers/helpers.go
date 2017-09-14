@@ -62,6 +62,13 @@ func (response *Response) Created(w http.ResponseWriter, message string) {
 	respondWithJson(w, response.Meta.StatusCode, response)
 }
 
+func (response *Response) Deleted(w http.ResponseWriter) {
+
+	response.Meta.Type = "success"
+	response.Meta.StatusCode = http.StatusNoContent
+	respondWithJson(w, response.Meta.StatusCode, response)
+}
+
 func respondWithJson(w http.ResponseWriter, code int64, payload *Response) {
 
 	response, _ := json.Marshal(payload)
