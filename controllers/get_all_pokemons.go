@@ -9,16 +9,14 @@ import (
 func GetAllPokemons(db *sql.DB, w http.ResponseWriter, r *http.Request) {
 
 	var response Response
+	var errorMessage string
 
 	rows, err := db.Query("SELECT * FROM pokemons")
 
 	if err != nil {
 
-		response.Meta.Type = "internal server error"
-		response.Meta.StatusCode = http.StatusInternalServerError
-		response.Body = map[string]interface{}{"error": err.Error()}
-
-		respondWithJson(w, http.StatusInternalServerError, response)
+		errorMessage = err.Error()
+		response.ServerError(w, errorMessage)
 	}
 
 	defer rows.Close()
@@ -37,22 +35,14 @@ func GetAllPokemons(db *sql.DB, w http.ResponseWriter, r *http.Request) {
 
 		if err != nil {
 
-			response.Meta.Type = "internal server error"
-			response.Meta.StatusCode = http.StatusInternalServerError
-			response.Body = map[string]interface{}{"error": err.Error()}
-
-			respondWithJson(w, http.StatusInternalServerError, response)
+			errorMessage = err.Error()
+			response.ServerError(w, errorMessage)
 		}
 
 		pokemons = append(pokemons, pokemon)
 	}
 
-	response.Meta.Type = "success"
-	response.Meta.StatusCode = http.StatusOK
-	response.Body = make(map[string]interface{})
-	response.Body["count"] = len(pokemons)
-	response.Body["data"] = pokemons
+	body := map[string]interface{}{"count": len(pokemons), "data": pokemons}
+	response.StatusOK(w, body)
 
-	// Respond with the pokemons
-	respondWithJson(w, http.StatusOK, response)
 }

@@ -11,13 +11,14 @@ import (
 func GetPokemon(db *sql.DB, w http.ResponseWriter, req *http.Request) {
 
 	var response Response
+	var errorMessage string
 
 	vars := mux.Vars(req)
 	pokemonName := vars["name"]
 
 	var pokemon models.Pokemon
 
-	err := db.QueryRow("SELECT * FROM pokemons WHERE name=$1", pokemonName).Scan(
+	err := db.QueryRow("SELECT * FROM pokemons WHERE name=$1 ORDER BY id", pokemonName).Scan(
 		&pokemon.ID, &pokemon.Number, &pokemon.Name, &pokemon.JpName,
 		&pokemon.Types, &pokemon.Stats.HP, &pokemon.Stats.Attack,
 		&pokemon.Stats.Defense, &pokemon.Stats.Sp_atk, &pokemon.Stats.Sp_def,
@@ -26,16 +27,15 @@ func GetPokemon(db *sql.DB, w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 
 		if err == sql.ErrNoRows {
-			// 404 not found
-			// respondWithError(w, http.StatusNotFound, "Pokemon not found")
+			response.NotFound(w, "This pokemon does not (yet) exist.")
 			return
 		} else {
-			// 500 Internal Server Error
-			// respondWithError(w, http.StatusInternalServerError, err.Error())
+			errorMessage = err.Error()
+			response.ServerError(w, errorMessage)
 			return
 		}
 	}
-	response.Body = make(map[string]interface{})
-	response.Body["pokemon"] = pokemon
-	respondWithJson(w, http.StatusOK, response)
+
+	body := map[string]interface{}{"pokemon": pokemon}
+	response.StatusOK(w, body)
 }
