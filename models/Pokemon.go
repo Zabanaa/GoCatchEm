@@ -1,21 +1,21 @@
 package models
 
 type Pokemon struct {
-	ID         int    `json:"id,omitempty"`
-	Number     string `json:"number,omitempty"`
-	Name       string `json:"name,omitempty"`
-	JpName     string `json:"jp_name,omitempty"`
-	Types      string `json:"types,omitempty"`
-	Stats      Stats  `json:"stats,omitempty"`
-	Bio        string `json:"bio,omitempty"`
-	Generation int64  `json:"generation,omitempty"`
+	ID         int    `json:"id, omitempty"`
+	Number     string `json:"number"`
+	Name       string `json:"name"`
+	JpName     string `json:"jp_name"`
+	Types      string `json:"types"`
+	Stats      Stats  `json:"stats"`
+	Bio        string `json:"bio"`
+	Generation int64  `json:"generation"`
 }
 
 type Stats struct {
-	HP      int `json:"hp,omitempty"`
-	Attack  int `json:"attack,omitempty"`
-	Defense int `json:"defense,omitempty"`
-	Sp_atk  int `json:"sp_atk,omitempty"`
-	Sp_def  int `json:"sp_def,omitempty"`
-	Speed   int `json:"speed,omitempty"`
+	HP      int `json:"hp"`
+	Attack  int `json:"attack"`
+	Defense int `json:"defense"`
+	Sp_atk  int `json:"sp_atk"`
+	Sp_def  int `json:"sp_def"`
+	Speed   int `json:"speed"`
 }
