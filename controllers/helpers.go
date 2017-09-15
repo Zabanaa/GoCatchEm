@@ -6,12 +6,13 @@ import (
 )
 
 type Response struct {
-	Meta struct {
-		Type       string `json:"type, omitempty"`
-		StatusCode int64  `json:"status_code, omitempty"`
-	}
-
+	Meta Meta                   `json:"meta,omitempty"`
 	Body map[string]interface{} `json:"body, omitempty"`
+}
+
+type Meta struct {
+	Type       string `json:"type, omitempty"`
+	StatusCode int64  `json:"status_code, omitempty"`
 }
 
 func (response *Response) StatusOK(w http.ResponseWriter, body map[string]interface{}) {
