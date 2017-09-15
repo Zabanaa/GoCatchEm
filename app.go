@@ -41,6 +41,7 @@ func (app *App) Run(addr string) {
 func (app *App) RegisterRoutes() {
 	app.Router.HandleFunc("/pokemons", app.getAllPokemons).Methods("GET")
 	app.Router.HandleFunc("/pokemons/{name}", app.getPokemon).Methods("GET")
+	app.Router.HandleFunc("/pokemons/{name}", app.deletePokemon).Methods("DELETE")
 }
 
 // Controllers
@@ -51,4 +52,8 @@ func (app *App) getAllPokemons(w http.ResponseWriter, r *http.Request) {
 
 func (app *App) getPokemon(w http.ResponseWriter, r *http.Request) {
 	controllers.GetPokemon(app.DB, w, r)
+}
+
+func (app *App) deletePokemon(w http.ResponseWriter, r *http.Request) {
+	controllers.DeletePokemon(app.DB, w, r)
 }
