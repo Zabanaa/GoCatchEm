@@ -40,6 +40,7 @@ func (app *App) Run(addr string) {
 
 func (app *App) RegisterRoutes() {
 	app.Router.HandleFunc("/pokemons", app.getAllPokemons).Methods("GET")
+	app.Router.HandleFunc("/pokemons", app.createPokemon).Methods("POST")
 	app.Router.HandleFunc("/pokemons/{name}", app.getPokemon).Methods("GET")
 	app.Router.HandleFunc("/pokemons/{name}", app.deletePokemon).Methods("DELETE")
 }
@@ -56,4 +57,8 @@ func (app *App) getPokemon(w http.ResponseWriter, r *http.Request) {
 
 func (app *App) deletePokemon(w http.ResponseWriter, r *http.Request) {
 	controllers.DeletePokemon(app.DB, w, r)
+}
+
+func (app *App) createPokemon(w http.ResponseWriter, r *http.Request) {
+	controllers.CreatePokemon(app.DB, w, r)
 }
