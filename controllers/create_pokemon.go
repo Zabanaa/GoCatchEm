@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"pokemon_api/models"
+	"strings"
 )
 
 func CreatePokemon(db *sql.DB, w http.ResponseWriter, r *http.Request) {
@@ -17,7 +18,7 @@ func CreatePokemon(db *sql.DB, w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
 	if err := decoder.Decode(&body); err != nil {
-		response.ServerError(w, err.Error())
+		response.BadRequest(w, `Couldn't process the request. Make sure it's properly formatted and that the fields are of the correct types. For more information on types, please refer to the documentation.`)
 		return
 	}
 
@@ -36,9 +37,25 @@ func CreatePokemon(db *sql.DB, w http.ResponseWriter, r *http.Request) {
 		&body.Generation)
 
 	if err != nil {
+
 		errorMessage := err.Error()
-		response.ServerError(w, "Something happened"+errorMessage)
-		return
+
+		if strings.Contains(errorMessage, "unique constraint") {
+
+			response.Conflict(w)
+			return
+
+		} else if strings.Contains(errorMessage, "not-null") {
+
+			missingField := extractMissingField(errorMessage)
+			response.MissingFields(w, missingField)
+			return
+
+		} else {
+
+			response.ServerError(w, errorMessage)
+			return
+		}
 	}
 
 	response.Created(w, "Pokemon Created")
