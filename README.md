@@ -11,6 +11,7 @@ improvements are in the pipeline :
 - [] Rate Limiting
 - [] Authentication using JWT
 - [] Pagination
+- [] Logging
 
 The API returns information about all pokemons (name, types, stats etc).
 
