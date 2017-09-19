@@ -12,6 +12,7 @@ improvements are in the pipeline :
 - [] Authentication using JWT
 - [] Pagination
 - [] Logging
+- [] Return a location header with a URL to the "created resource"
 
 The API returns information about all pokemons (name, types, stats etc).
 
