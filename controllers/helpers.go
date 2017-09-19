@@ -99,8 +99,10 @@ func (response *Response) Deleted(w http.ResponseWriter) {
 func respondWithJson(w http.ResponseWriter, code int64, payload *Response) {
 
 	response, _ := json.Marshal(payload)
+	statusCode := int(code) // We convert code to an int because w.WriteHeader does not accept Int64 type values
+
 	w.Header().Set("content-type", "application/json")
-	w.WriteHeader(int(code)) // We convert code to an int because w.WriteHeader does not accept Int64 type values
+	w.WriteHeader(statusCode)
 	w.Write(response)
 }
 
