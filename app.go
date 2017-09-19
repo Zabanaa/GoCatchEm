@@ -28,6 +28,10 @@ func (app *App) Initialize(dbuser, dbpassword, dbname string) {
 		log.Fatal(err)
 	}
 
+	if err := app.DB.Ping(); err != nil {
+		panic(err)
+	}
+
 	app.Router = mux.NewRouter()
 	app.RegisterRoutes()
 }
@@ -42,6 +46,7 @@ func (app *App) RegisterRoutes() {
 	app.Router.HandleFunc("/pokemons", app.getAllPokemons).Methods("GET")
 	app.Router.HandleFunc("/pokemons", app.createPokemon).Methods("POST")
 	app.Router.HandleFunc("/pokemons/{name}", app.getPokemon).Methods("GET")
+	app.Router.HandleFunc("/pokemons/{name}", app.updatePokemon).Methods("PUT")
 	app.Router.HandleFunc("/pokemons/{name}", app.deletePokemon).Methods("DELETE")
 }
 
@@ -61,4 +66,8 @@ func (app *App) deletePokemon(w http.ResponseWriter, r *http.Request) {
 
 func (app *App) createPokemon(w http.ResponseWriter, r *http.Request) {
 	controllers.CreatePokemon(app.DB, w, r)
+}
+
+func (app *App) updatePokemon(w http.ResponseWriter, r *http.Request) {
+	controllers.UpdatePokemon(app.DB, w, r)
 }
