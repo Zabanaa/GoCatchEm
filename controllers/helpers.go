@@ -49,22 +49,22 @@ func (response *Response) Conflict(w http.ResponseWriter) {
 	respondWithJson(w, response.Meta.StatusCode, response)
 }
 
-func (response *Response) BadRequest(w http.ResponseWriter, message string) {
+func (response *Response) BadRequest(w http.ResponseWriter) {
 
 	response.Meta.Type = "error"
 	response.Meta.StatusCode = http.StatusBadRequest
 	response.Body = map[string]interface{}{
-		"message": message,
+		"message": "Couldn't process the request. Make sure it's properly formatted and that the fields are of the correct types. For more information on types, please refer to the documentation.",
 	}
 	respondWithJson(w, response.Meta.StatusCode, response)
 }
 
-func (response *Response) NotFound(w http.ResponseWriter, message string) {
+func (response *Response) NotFound(w http.ResponseWriter) {
 
 	response.Meta.Type = "error"
 	response.Meta.StatusCode = http.StatusNotFound
 	response.Body = map[string]interface{}{
-		"message": message,
+		"message": "Pokemon not found.",
 	}
 	respondWithJson(w, response.Meta.StatusCode, response)
 }

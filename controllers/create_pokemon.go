@@ -18,7 +18,7 @@ func CreatePokemon(db *sql.DB, w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
 	if err := decoder.Decode(&body); err != nil {
-		response.BadRequest(w, `Couldn't process the request. Make sure it's properly formatted and that the fields are of the correct types. For more information on types, please refer to the documentation.`)
+		response.BadRequest(w)
 		return
 	}
 
