@@ -44,7 +44,7 @@ func (response *Response) Conflict(w http.ResponseWriter) {
 	response.Meta.Type = "error"
 	response.Meta.StatusCode = http.StatusConflict
 	response.Body = map[string]interface{}{
-		"message": "A pokemon with this name already exists",
+		"message": "A pokemon with this name already exists. If you're updating an existing pokemon, please omit the name field.",
 	}
 	respondWithJson(w, response.Meta.StatusCode, response)
 }
