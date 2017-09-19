@@ -9,10 +9,10 @@ I intend to use this project as a sandbox to improve my go skills. The following
 improvements are in the pipeline :
 
 - [] Rate Limiting
-- [] Authentication using JWT
 - [] Pagination
 - [] Logging
 - [] Return a location header with a URL to the "created resource"
+- [] Update stats in PUT request (Embedded struct reflection)
 
 The API returns information about all pokemons (name, types, stats etc).
 
