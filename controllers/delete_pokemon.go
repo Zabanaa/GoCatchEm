@@ -24,16 +24,10 @@ func DeletePokemon(db *sql.DB, w http.ResponseWriter, r *http.Request) {
 
 	count, err := result.RowsAffected()
 
-	if err != nil {
-		response.NotFound(w)
-		return
-	}
-
-	if count == 0 {
+	if err != nil || count == 0 {
 		response.NotFound(w)
 		return
 	}
 
 	response.Deleted(w)
-
 }
