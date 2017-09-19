@@ -1,0 +1,2 @@
+- Extract error handling logic into their own helper functions
+- handle query parameters for get requests
