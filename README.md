@@ -8,11 +8,11 @@ old go, the only addition being mux for routing requests.
 I intend to use this project as a sandbox to improve my go skills. The following
 improvements are in the pipeline :
 
-- [] Rate Limiting
-- [] Pagination
-- [] Logging
-- [] Return a location header with a URL to the "created resource"
-- [] Update stats in PUT request (Embedded struct reflection)
+- [ ] Rate Limiting
+- [ ] Pagination
+- [ ] Logging
+- [ ] Return a location header with a URL to the "created resource"
+- [ ] Update stats in PUT request (Embedded struct reflection)
 
 The API returns information about all pokemons (name, types, stats etc).
 
@@ -27,57 +27,67 @@ external service.
 ## Endpoints
 
 **Get all pokemons**
-* /pokemons                                 GET
+* `GET` /pokemons
 
 **Get pokemon by name**
-* /pokemons/{name:string}                   GET
+* `GET` /pokemons/{name:string}
 
 **Get pokemons by type**
-* /pokemons?type={type:string}              GET
+* `GET` /pokemons?type={type:string}
 
 **Get pokemons by generation**
-* /pokemons?generation={generation:int}     GET
+* `GET` /pokemons?generation={generation:int}
 
 _Note: the following endpoints will simulate insertion, update and deletion but
 the changes won't be persisted to the database_
 
 **Add a new pokemon**
-* /pokemons                                 POST
+* `POST` /pokemons
 
 Request body must contain (in JSON format):
-- name `string`
-- jp_name `string`
-- types `string` (comma separated list)
-- stats `object`
-    - hp `int`
-    - attack `int`
-    - defense `int`
-    - sp_atk `int`
-    - sp_def `int`
-    - speed `int`
-- bio `string`
-- generation `int`
+```javascript
+{
+    "name": type string,
+    "jp_name": type string,
+    "types": type string (comma separated),
+    "stats": {,
+        "hp" type int,
+        "attack" type int,
+        "defense" type int,
+        "sp_attack" type int,
+        "sp_defense" type int,
+        "speed" type int,
+    },,
+    "bio": type string,
+    "generation": type int
+}
+```
 
 **Update a pokemon**
-* /pokemons/{name}                          PUT
+* `PUT` /pokemons/{name}
 
 Request body must contain any of the following (in JSON format):
 
-- name `string`
-- jp_name `string`
-- types `string` (comma separated list)
-- stats `object`
-    - hp `int`
-    - attack `int`
-    - defense `int`
-    - sp_atk `int`
-    - sp_def `int`
-    - speed `int`
-- bio `string`
-- generation `int`
+```javascript
+{
+    "name": type string,
+    "jp_name": type string,
+    "types": type string (comma separated),
+    "stats": {,
+        "hp" type int,
+        "attack" type int,
+        "defense" type int,
+        "sp_attack" type int,
+        "sp_defense" type int,
+        "speed" type int,
+    },,
+    "bio": type string,
+    "generation": type int
+}
+```
 
 **Delete a pokemon**
-* /pokemons/{name}                          DELETE
+* `DELETE` /pokemons/{name}
 
 ## Contributing
 
