@@ -25,7 +25,7 @@ func DeletePokemon(db *sql.DB, w http.ResponseWriter, r *http.Request) {
 	count, err := result.RowsAffected()
 
 	if err != nil || count == 0 {
-		response.NotFound(w)
+		response.NotFound(w, "This pokemon does not exist")
 		return
 	}
 

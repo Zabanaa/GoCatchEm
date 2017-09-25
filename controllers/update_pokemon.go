@@ -31,7 +31,7 @@ func UpdatePokemon(db *sql.DB, w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 
 		if err == sql.ErrNoRows {
-			response.NotFound(w)
+			response.NotFound(w, "This Pokemon does not exist")
 			return
 		} else {
 			errorMessage = err.Error()
@@ -102,8 +102,9 @@ func ActuallyUpdatePokemon(db *sql.DB, w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 
 		if err == sql.ErrNoRows {
-			response.NotFound(w)
+			response.NotFound(w, "This pokemon does not exist")
 			return
+
 		} else {
 			errorMessage = err.Error()
 			response.ServerError(w, errorMessage)
@@ -178,5 +179,4 @@ func ActuallyUpdatePokemon(db *sql.DB, w http.ResponseWriter, r *http.Request) {
 	// return the object
 	body := map[string]interface{}{"pokemon": pokemon}
 	response.StatusOK(w, body)
-
 }

@@ -28,7 +28,7 @@ func GetPokemon(db *sql.DB, w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 
 		if err == sql.ErrNoRows {
-			response.NotFound(w)
+			response.NotFound(w, "This pokemon does not exist")
 			return
 		} else {
 			errorMessage = err.Error()

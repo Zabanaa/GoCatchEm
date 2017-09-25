@@ -10,8 +10,11 @@ func GetAllPokemons(db *sql.DB, w http.ResponseWriter, r *http.Request) {
 
 	var response Response
 	var errorMessage string
+	var query string
 
-	rows, err := db.Query("SELECT * FROM pokemons")
+	query = `SELECT * FROM pokemons ORDER BY id;`
+
+	rows, err := db.Query(query)
 
 	if err != nil {
 
@@ -44,5 +47,4 @@ func GetAllPokemons(db *sql.DB, w http.ResponseWriter, r *http.Request) {
 
 	body := map[string]interface{}{"count": len(pokemons), "data": pokemons}
 	response.StatusOK(w, body)
-
 }
