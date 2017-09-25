@@ -1,2 +1,2 @@
-- Extract error handling logic into their own helper functions
-- handle query parameters for get requests
+- Flatten structs to update requests
+- Figure out how to deal with optional query params
