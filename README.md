@@ -27,22 +27,22 @@ external service.
 ## Endpoints
 
 **Get all pokemons**
-* `GET` /pokemons
+* `GET`  /pokemons
 
 **Get pokemon by name**
-* `GET` /pokemons/{name:string}
+* `GET`  /pokemons/{name:string}
 
 **Get pokemons by type**
-* `GET` /pokemons?type={type:string}
+* `GET`  /pokemons/type/{type:string}
 
 **Get pokemons by generation**
-* `GET` /pokemons?generation={generation:int}
+* `GET`  /pokemons/generation/{generation:int}
 
 _Note: the following endpoints will simulate insertion, update and deletion but
 the changes won't be persisted to the database_
 
 **Add a new pokemon**
-* `POST` /pokemons
+* `POST`  /pokemons
 
 Request body must contain (in JSON format):
 ```javascript
@@ -64,7 +64,7 @@ Request body must contain (in JSON format):
 ```
 
 **Update a pokemon**
-* `PUT` /pokemons/{name}
+* `PUT`  /pokemons/{name}
 
 Request body must contain any of the following (in JSON format):
 
@@ -87,7 +87,7 @@ Request body must contain any of the following (in JSON format):
 ```
 
 **Delete a pokemon**
-* `DELETE` /pokemons/{name}
+* `DELETE`  /pokemons/{name}
 
 ## Contributing
 
