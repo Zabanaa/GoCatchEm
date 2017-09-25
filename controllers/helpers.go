@@ -59,12 +59,12 @@ func (response *Response) BadRequest(w http.ResponseWriter) {
 	respondWithJson(w, response.Meta.StatusCode, response)
 }
 
-func (response *Response) NotFound(w http.ResponseWriter) {
+func (response *Response) NotFound(w http.ResponseWriter, message string) {
 
 	response.Meta.Type = "error"
 	response.Meta.StatusCode = http.StatusNotFound
 	response.Body = map[string]interface{}{
-		"message": "Pokemon not found.",
+		"message": message,
 	}
 	respondWithJson(w, response.Meta.StatusCode, response)
 }
