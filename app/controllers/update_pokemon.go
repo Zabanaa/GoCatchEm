@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"net/http"
-	"pokemon_api/models"
+	"pokemon_api/app/models"
 	"reflect"
 	"strings"
 

@@ -3,7 +3,7 @@ package controllers
 import (
 	"database/sql"
 	"net/http"
-	"pokemon_api/models"
+	"pokemon_api/app/models"
 
 	"github.com/gorilla/mux"
 )

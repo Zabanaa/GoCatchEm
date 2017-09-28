@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"pokemon_api/controllers"
+	"pokemon_api/app/controllers"
 
 	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
