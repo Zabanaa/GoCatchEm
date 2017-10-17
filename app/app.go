@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"pokemon_api/app/controllers"
 
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
 )
@@ -38,8 +39,13 @@ func (app *App) Initialize(dbuser, dbpassword, dbname string) {
 
 func (app *App) Run(addr string) {
 	// run the app
+
+	headersOk := handlers.AllowedHeaders([]string{"X-Requested-With"})
+	originsOk := handlers.AllowedOrigins([]string{"*"})
+	methodsOk := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS"})
+
 	fmt.Println("Server listening on port ", addr)
-	log.Fatal(http.ListenAndServe(addr, app.Router))
+	log.Fatal(http.ListenAndServe(addr, handlers.CORS(headersOk, originsOk, methodsOk)(app.Router)))
 }
 
 func (app *App) RegisterRoutes() {
